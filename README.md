@@ -1,7 +1,9 @@
 # Wowza-Off-Air-Module
 A module for wowza which allows you to automatically switch any stream to an off-air video loop if the source stream goes offline.
 
-If you don't want to build the module yourself simply copy the ""Off-Air-Plugin.jar"" file into the wowza "lib" directory and jump to the "configuration" section.
+When this plugin is enabled each incoming stream will result in another stream being created with "_out" appended at the end. E.g. an incoming stream of "studio", would result in "studio_out" being created, and this is the stream the public should connect to.
+
+If you don't want to build the module yourself simply copy the "Off-Air-Plugin.jar" file into the wowza "lib" directory and jump to the "configuration" section.
 
 To use this first download eclipse and follow the instructions on http://www.wowza.com/streaming/developers
 
@@ -22,3 +24,7 @@ All properties should go on /Root/Application
 - **la1OffAirPlugin-streamsToRemainLive** Comma seperated list of stream names (and application instance names) that you want to remain live. If you don't specify an application instance name it defaults to `__definst__`. Defaults to "". E.g. "stream1, stream2, stream3/AnotherAppInstance" Note: applications don't start on wowza startup so you will probably want to use http://www.wowza.com/forums/content.php?155-How-to-use-a-ServerListener-(IServerNotify)-to-load-and-lock-an-appInstance in conjunction with this.
 
 If you are planning on using this or are having any issues please let me know!
+
+Transcoder
+----------
+If you enable the wowza transcoder it should just work™, and only the output streams should get transcoded. E.g a stream of studio --> studio_out --> studio_out_360p and studio_out_480p etc
