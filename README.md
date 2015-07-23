@@ -1,7 +1,7 @@
 # Wowza-Off-Air-Module
 A module for wowza which allows you to automatically switch any stream to an off-air video loop if the source stream goes offline.
 
-If you don't want to build the module yourself simply copy the .jar file into the wowza plugins directory and jump to the "configuration" section.
+If you don't want to build the module yourself simply copy the ""Off-Air-Plugin.jar"" file into the wowza "lib" directory and jump to the "configuration" section.
 
 To use this first download eclipse and follow the instructions on http://www.wowza.com/streaming/developers
 
