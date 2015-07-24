@@ -17,6 +17,7 @@ import com.wowza.wms.module.ModuleBase;
 import com.wowza.wms.request.RequestFunction;
 import com.wowza.wms.stream.IMediaStream;
 import com.wowza.wms.stream.IMediaStreamActionNotify;
+import com.wowza.wms.stream.livedvr.ILiveStreamDvrRecorderControl;
 import com.wowza.wms.stream.livetranscoder.ILiveStreamTranscoderControl;
 import com.wowza.wms.stream.publish.Stream;
 
@@ -65,6 +66,7 @@ public class OffAirPlugin extends ModuleBase {
 		cleanupTimer.schedule(new CleanupTimerTask(), 5000, 5000);
 		
 		appInstance.setLiveStreamTranscoderControl(new TranscoderControl());
+		appInstance.setLiveStreamDvrRecorderControl(new DvrRecorderControl());
 		
 		createInitialStreams();
 	}
@@ -348,5 +350,15 @@ public class OffAirPlugin extends ModuleBase {
 				return true;
 			}			
 		}
+	}
+	
+	private class DvrRecorderControl implements ILiveStreamDvrRecorderControl {
+
+		// returning false will disable dvr for the stream
+		public boolean shouldDvrRecord(String recorderName, IMediaStream mediaStream) {
+			// only record server side streams, as these are what the user should be watching 
+			return mediaStream.isPublisherStream();
+		}
+
 	}
 }

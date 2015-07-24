@@ -28,3 +28,7 @@ If you are planning on using this or are having any issues please let me know!
 Transcoder
 ----------
 If you enable the wowza transcoder it should just work™, and only the output streams should get transcoded. E.g a stream of studio --> studio_out --> studio_out_360p and studio_out_480p etc
+
+DVR
+----------
+If you enable the wowza dvr feature it should just work™, and only the output streams should have the dvr functionality enabled.
