@@ -18,6 +18,7 @@ import com.wowza.wms.request.RequestFunction;
 import com.wowza.wms.stream.IMediaStream;
 import com.wowza.wms.stream.IMediaStreamActionNotify;
 import com.wowza.wms.stream.livedvr.ILiveStreamDvrRecorderControl;
+import com.wowza.wms.stream.livepacketizer.ILiveStreamPacketizerControl;
 import com.wowza.wms.stream.livetranscoder.ILiveStreamTranscoderControl;
 import com.wowza.wms.stream.publish.Stream;
 
@@ -67,6 +68,7 @@ public class OffAirPlugin extends ModuleBase {
 		
 		appInstance.setLiveStreamTranscoderControl(new TranscoderControl());
 		appInstance.setLiveStreamDvrRecorderControl(new DvrRecorderControl());
+		appInstance.setLiveStreamPacketizerControl(new PacketizerControl());
 		
 		createInitialStreams();
 	}
@@ -364,5 +366,13 @@ public class OffAirPlugin extends ModuleBase {
 			return mediaStream.isPublisherStream();
 		}
 
+	}
+	
+	private class PacketizerControl implements ILiveStreamPacketizerControl {
+		
+		// returning false will disable packetizing the stream for http
+		public boolean isLiveStreamPacketize(String packetizer, IMediaStream mediaStream) {
+			return mediaStream.isPublisherStream();
+		}
 	}
 }
