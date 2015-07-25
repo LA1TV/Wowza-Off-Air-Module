@@ -19,9 +19,9 @@ Then you need to create the following application properties. Look at this for m
 
 All properties should go on /Root/Application
 
-- **la1OffAirPlugin-offAirVideo** The name of the video that should be looped. It must be placed inside the wowza 'content' folder. E.g. "sample.mp4"
-- **la1OffAirPlugin-timeToShowOffAirVideoFor** The time in seconds that the video should be shown for after an incoming stream finishes before the corresponding outgoing stream is ended. Defaults to 600
-- **la1OffAirPlugin-streamsToRemainLive** Comma seperated list of stream names (and application instance names) that you want to remain live. If you don't specify an application instance name it defaults to `__definst__`. Defaults to "". E.g. "stream1, stream2, stream3/AnotherAppInstance" Note: applications don't start on wowza startup so you will probably want to use http://www.wowza.com/forums/content.php?155-How-to-use-a-ServerListener-(IServerNotify)-to-load-and-lock-an-appInstance in conjunction with this.
+- **la1OffAirPlugin-offAirVideo** (string) The name of the video that should be looped. It must be placed inside the wowza 'content' folder. E.g. "sample.mp4"
+- **la1OffAirPlugin-timeToShowOffAirVideoFor** (integer) The time in seconds that the video should be shown for after an incoming stream finishes before the corresponding outgoing stream is ended. Defaults to 600
+- **la1OffAirPlugin-streamsToRemainLive** (string) Comma seperated list of stream names (and application instance names) that you want to remain live. If you don't specify an application instance name it defaults to `__definst__`. Defaults to "". E.g. "stream1, stream2, stream3/AnotherAppInstance" Note: applications don't start on wowza startup so you will probably want to use http://www.wowza.com/forums/content.php?155-How-to-use-a-ServerListener-(IServerNotify)-to-load-and-lock-an-appInstance in conjunction with this.
 
 If you are planning on using this or are having any issues please let me know!
 
