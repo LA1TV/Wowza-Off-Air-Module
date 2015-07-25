@@ -3,6 +3,7 @@ package uk.co.la1tv.offAirPlugin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,6 +20,7 @@ import com.wowza.wms.stream.IMediaStream;
 import com.wowza.wms.stream.IMediaStreamActionNotify;
 import com.wowza.wms.stream.livedvr.ILiveStreamDvrRecorderControl;
 import com.wowza.wms.stream.livetranscoder.ILiveStreamTranscoderControl;
+import com.wowza.wms.stream.publish.PlaylistItem;
 import com.wowza.wms.stream.publish.Stream;
 
 public class OffAirPlugin extends ModuleBase {
@@ -110,7 +112,7 @@ public class OffAirPlugin extends ModuleBase {
 				String streamName = streamNameAndAppInstanceArr[0];
 				if (appInstance.getName().equals(appInstanceName)) {
 					// this stream should remain live on this application instance.
-					broadcastStream(streamName);
+					broadcastStream(streamName, true);
 				}
 				
 			}
@@ -159,10 +161,14 @@ public class OffAirPlugin extends ModuleBase {
 		}
 	}
 	
+	private void broadcastStream(String streamNameToBroadcast) {
+		broadcastStream(streamNameToBroadcast, false);
+	}
+	
 	// broadcast the stream name with streamNameToBroadcast on a server side stream with the same stream name
 	// if a stream already exists with the same stream name then it will be used
 	// otherwise a stream will be created, then used.
-	private void broadcastStream(String streamNameToBroadcast) {
+	private void broadcastStream(String streamNameToBroadcast, boolean showOffAir) {
 		String streamName = streamNameToBroadcast;
 		
 		synchronized(streams) {
@@ -174,7 +180,7 @@ public class OffAirPlugin extends ModuleBase {
 				streams.put(streamName, serverStream);
 				logger.info(LOG_PREFIX+" Created server side stream for "+streamName, WMSLoggerIDs.CAT_application, WMSLoggerIDs.EVT_comment);
 			}
-			serverStream.attemptSwitchToStream(streamName);
+			serverStream.attemptSwitchToStream(!showOffAir ? streamName : null);
 		}
 	}
 	
@@ -251,12 +257,18 @@ public class OffAirPlugin extends ModuleBase {
 			boolean success = false;
 			liveStreamName = null;
 			String item = "";
+			List<PlaylistItem> playlist = stream.getPlaylist();
 			if (streamName != null) {
 				stream.setRepeat(false);
 				success = stream.play(streamName, -2, -1, true);
 				item = "\""+streamName+"\"";
 				if (success) {
 					liveStreamName = streamName;
+					System.out.println("SWITCHED TO "+streamName);
+				}
+				else {
+
+					System.out.println("NOT SWITCHED TO "+streamName);
 				}
 			}
 			else {
