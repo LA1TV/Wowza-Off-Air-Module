@@ -3,7 +3,6 @@ package uk.co.la1tv.offAirPlugin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,7 +19,6 @@ import com.wowza.wms.stream.IMediaStream;
 import com.wowza.wms.stream.IMediaStreamActionNotify;
 import com.wowza.wms.stream.livedvr.ILiveStreamDvrRecorderControl;
 import com.wowza.wms.stream.livetranscoder.ILiveStreamTranscoderControl;
-import com.wowza.wms.stream.publish.PlaylistItem;
 import com.wowza.wms.stream.publish.Stream;
 
 public class OffAirPlugin extends ModuleBase {
@@ -257,18 +255,12 @@ public class OffAirPlugin extends ModuleBase {
 			boolean success = false;
 			liveStreamName = null;
 			String item = "";
-			List<PlaylistItem> playlist = stream.getPlaylist();
 			if (streamName != null) {
 				stream.setRepeat(false);
 				success = stream.play(streamName, -2, -1, true);
 				item = "\""+streamName+"\"";
 				if (success) {
 					liveStreamName = streamName;
-					System.out.println("SWITCHED TO "+streamName);
-				}
-				else {
-
-					System.out.println("NOT SWITCHED TO "+streamName);
 				}
 			}
 			else {
