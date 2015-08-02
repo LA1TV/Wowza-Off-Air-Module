@@ -243,6 +243,7 @@ public class OffAirPlugin extends ModuleBase {
 		public ServerSideStream(String serverSideStreamName) {
 			stream = Stream.createInstance(appInstance, serverSideStreamName);
 			stream.setUnpublishOnEnd(false);
+			stream.setStartLiveOnPreviousKeyFrame(true);
 		}
 		
 		// attempt to put incoming stream with streamName on this server side stream
